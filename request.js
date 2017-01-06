@@ -1,8 +1,8 @@
 import qs from 'query-string'
 import template from 'string-template'
 import isPlainObject from 'lodash/isPlainObject'
-import merge from 'utils/cheap-merge'
-import promisify from 'utils/promisify'
+import merge from './cheap-merge'
+import promisify from './promisify'
 
 const defaultOptions = {
   headers: {
