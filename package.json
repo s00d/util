@@ -1,10 +1,15 @@
 {
-  "name": "util",
-  "version": "0.0.1",
-  "description": "utilities",
+  "name": "plato-util",
+  "version": "3.0.0-beta",
+  "description": "Utilities for PLATO",
   "main": "index.js",
   "scripts": {
-    "lint": "eslint --max-warnings 10 ."
+    "prepublish": "npm test",
+    "unit": "cross-env NODE_ENV=test DEBUG=PLATO:* karma start ./test/unit/runner.js",
+    "unit:dev": "npm run unit -- --watch",
+    "lint": "eslint --max-warnings 10 .",
+    "lint:fix": "npm run lint -- --fix",
+    "test": "npm run lint && npm run unit"
   },
   "repository": {
     "type": "git",
@@ -29,7 +34,37 @@
     "string-template": "^1.0.0"
   },
   "devDependencies": {
-    "eslint": "3.9.0",
-    "eslint-config-plato": "^0.0.3"
+    "babel-loader": "^6.2.10",
+    "babel-plugin-__coverage__": "^11.0.0",
+    "babel-plugin-add-module-exports": "^0.2.1",
+    "babel-preset-es2015": "^6.18.0",
+    "babel-preset-stage-0": "^6.16.0",
+    "babel-register": "^6.18.0",
+    "bundle-loader": "^0.5.4",
+    "chai": "^3.5.0",
+    "cross-env": "^3.1.3",
+    "eslint": "^3.12.2",
+    "eslint-config-plato": "^0.0.3",
+    "file-loader": "^0.9.0",
+    "json-loader": "^0.5.4",
+    "karma": "^1.3.0",
+    "karma-coverage": "^1.1.1",
+    "karma-es6-shim": "^1.0.0",
+    "karma-mocha": "^1.3.0",
+    "karma-mocha-reporter": "^2.2.1",
+    "karma-phantomjs-launcher": "^1.0.2",
+    "karma-sourcemap-loader": "^0.3.7",
+    "karma-webpack": "^2.0.1",
+    "mocha": "^3.2.0",
+    "nuo": "^1.0.0",
+    "phantomjs-polyfill": "^0.0.2",
+    "phantomjs-prebuilt": "^2.1.14",
+    "sinon": "^1.17.7",
+    "sinon-chai": "^2.8.0",
+    "vue": "^2.1.8",
+    "vue-loader": "^10.0.2",
+    "webpack": "^2.2.0-rc.4",
+    "whatwg-fetch": "^2.0.1",
+    "yargs": "^6.6.0"
   }
 }
