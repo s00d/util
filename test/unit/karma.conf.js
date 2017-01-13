@@ -50,10 +50,7 @@ const karmaConfig = {
     devtool: 'inline-source-map',
     resolve: {
       modules: ['.', 'node_modules'],
-      extensions: ['.js', '.json', '.vue'],
-      alias: {
-        vue: 'vue/dist/vue'
-      }
+      extensions: ['.js']
     },
     plugins: [
       new webpack.DefinePlugin({}),
@@ -67,22 +64,9 @@ const karmaConfig = {
     module: {
       rules: [
         {
-          test: /\.vue$/,
-          loader: 'vue-loader',
-          options: {
-            loaders: {
-              js: 'babel-loader'
-            }
-          }
-        },
-        {
           test: /\.js$/,
           exclude: /node_modules/,
           loader: 'babel-loader'
-        },
-        {
-          test: /\.json$/,
-          loader: 'json-loader'
         }
       ]
     },
