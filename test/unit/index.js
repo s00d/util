@@ -17,5 +17,5 @@ testsContext.keys().forEach(testsContext)
 // require all src files except index.js for coverage.
 // you can also change this to match only the subset of files that
 // you want coverage for.
-const componentsContext = require.context('../../', true, /^\.[/\\]((?!test|coverage|node_modules).)*(\.js)$/)
+const componentsContext = require.context('../../', true, /^\.[/\\]((?!index|test|coverage|node_modules).)*(\.js)$/)
 componentsContext.keys().forEach(componentsContext)

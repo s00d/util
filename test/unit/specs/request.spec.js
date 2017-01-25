@@ -1,4 +1,4 @@
-import request from 'request'
+import request, { configure, get, post, put, patch, del } from 'request'
 
 const headers = {
   'Content-Type': 'application/json'
@@ -110,7 +110,8 @@ describe('request', () => {
 
     it('should promisify options', done => {
       request('a', {
-        mutator (options) {
+        // should warn deprecated
+        mutate (options) {
           return options
         }
       }).finally(done)
@@ -264,6 +265,111 @@ describe('request', () => {
       }).finally(() => {
         expect(body).to.equal('{"x":1}')
         done()
+      })
+    })
+  })
+
+  describe('configure', () => {
+    it('should modify defaultOptions', done => {
+      request({
+        url: '',
+        mutator (options) {
+          expect(options.forceJSON).to.be.false
+          expect(options.mutate1).to.be.undefined
+          configure({
+            forceJSON: true,
+            mutate (options) {
+              options.mutate1 = 'mutate1'
+              return options
+            }
+          })
+          request({
+            url: '',
+            mutator (options) {
+              expect(options.forceJSON).to.be.true
+              expect(options.mutate1).to.equal('mutate1')
+              done()
+            }
+          })
+        }
+      })
+    })
+  })
+
+  describe('shorthand', () => {
+    const body = {
+      x: 1
+    }
+    const response = '{"hello":"world"}'
+
+    beforeEach(() => {
+      sinon.stub(window, 'fetch')
+      window.fetch
+        .returns(Promise.resolve(new window.Response(response, {
+          status: 200,
+          headers
+        })))
+    })
+
+    afterEach(() => {
+      window.fetch.restore()
+    })
+
+    it('get', done => {
+      get('ok', {
+        body,
+        mutator (options) {
+          expect(options.method).to.equal('GET')
+          expect(options.url).to.equal('ok?x=1')
+          done()
+        }
+      })
+    })
+
+    it('post', done => {
+      post('ok', {
+        body,
+        mutator (options) {
+          expect(options.method).to.equal('POST')
+          expect(options.url).to.equal('ok')
+          expect(options.body).to.equal(JSON.stringify(body))
+          done()
+        }
+      })
+    })
+
+    it('put', done => {
+      put('ok', {
+        body,
+        mutator (options) {
+          expect(options.method).to.equal('PUT')
+          expect(options.url).to.equal('ok')
+          expect(options.body).to.equal(JSON.stringify(body))
+          done()
+        }
+      })
+    })
+
+    it('patch', done => {
+      patch('ok', {
+        body,
+        mutator (options) {
+          expect(options.method).to.equal('PATCH')
+          expect(options.url).to.equal('ok')
+          expect(options.body).to.equal(JSON.stringify(body))
+          done()
+        }
+      })
+    })
+
+    it('del', done => {
+      del('ok', {
+        body,
+        mutator (options) {
+          expect(options.method).to.equal('DELETE')
+          expect(options.url).to.equal('ok?x=1')
+          done()
+        }
       })
     })
   })
