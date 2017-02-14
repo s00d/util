@@ -1,6 +1,6 @@
 {
-  "name": "plato-util",
-  "version": "3.0.0-beta.4",
+  "name": "util",
+  "version": "3.0.0-beta.5",
   "description": "Utilities for PLATO",
   "main": "index.js",
   "scripts": {
@@ -13,7 +13,7 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/crossjs/util.git"
+    "url": "git+https://github.com/platojs/util.git"
   },
   "keywords": [
     "is",
@@ -25,9 +25,9 @@
   "author": "crossjs",
   "license": "MIT",
   "bugs": {
-    "url": "https://github.com/crossjs/util/issues"
+    "url": "https://github.com/platojs/util/issues"
   },
-  "homepage": "https://github.com/crossjs/util",
+  "homepage": "https://github.com/platojs/util",
   "dependencies": {
     "lodash": "^4.17.4",
     "query-string": "^4.2.3",
